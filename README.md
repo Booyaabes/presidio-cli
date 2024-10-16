@@ -1,7 +1,7 @@
 # Presidio CLI
 
-[![Test 🧪](https://github.com/insightsengineering/presidio-cli/actions/workflows/test-python.yaml/badge.svg)](https://github.com/insightsengineering/presidio-cli/actions/workflows/test-python.yaml)
-[![SuperLinter 🦸‍♀️](https://github.com/insightsengineering/presidio-cli/actions/workflows/lint.yaml/badge.svg)](https://github.com/insightsengineering/presidio-cli/actions/workflows/lint.yaml)
+[![Test 🧪](https://github.com/Booyaabes/presidio-cli/actions/workflows/test-python.yaml/badge.svg)](https://github.com/Booyaabes/presidio-cli/actions/workflows/test-python.yaml)
+[![SuperLinter 🦸‍♀️](https://github.com/Booyaabes/presidio-cli/actions/workflows/lint.yaml/badge.svg)](https://github.com/Booyaabes/presidio-cli/actions/workflows/lint.yaml)
 [![PyPI license](https://img.shields.io/pypi/l/presidio-cli.svg)](https://pypi.python.org/pypi/presidio-cli/)
 [![PyPI version](https://badge.fury.io/py/presidio-cli.svg)](https://badge.fury.io/py/presidio-cli)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
@@ -44,7 +44,7 @@ pipenv install presidio-cli
 
 ```shell
 # clone from git
-git clone https://github.com/insightsengineering/presidio-cli
+git clone https://github.com/Booyaabes/presidio-cli
 cd presidio-cli
 # install required apps and presidio-cli
 pipenv install --deploy --dev
