@@ -10,6 +10,8 @@ class PresidioCLIConfigError(Exception):
 
 class PresidioCLIConfig(object):
     def __init__(self, content=None, file=None):
+        self.allow_list = None
+        self.entities = None
         assert (content is None) ^ (file is None)
         self.ignore = None
         self.locale = None
@@ -54,6 +56,9 @@ class PresidioCLIConfig(object):
         # Create list with unique entries
         if base_config.entities is not None:
             self.entities = list(set(base_config.entities + self.entities))
+        
+        if base_config.allow_list is not None:
+            self.allow_list = list(set(base_config.allow_list + self.allow_list))
 
         if base_config.ignore is not None:
             self.ignore = base_config.ignore
@@ -74,6 +79,8 @@ class PresidioCLIConfig(object):
 
         if self.entities == {}:
             self.entities = self.analyzer.get_supported_entities()
+
+        self.allow_list = conf.get("allow_list", {})
 
         if "threshold" in conf:
             if not 0 <= float(self.threshold) <= 1:

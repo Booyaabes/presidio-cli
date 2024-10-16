@@ -14,7 +14,11 @@ from presidio_cli.config import PresidioCLIConfig, PresidioCLIConfigError
 
 class Format(object):
     @staticmethod
-    def parsable(problem):
+    def parsable(problem, file):
+        problem.recognizer_result["filename"] = file
+        problem.recognizer_result["line_number"] = problem.line
+        problem.recognizer_result.pop("analysis_explanation")
+        problem.recognizer_result.pop("recognition_metadata")
         return json.dumps(problem.recognizer_result)
 
     @staticmethod
@@ -85,7 +89,9 @@ def show_problems(problems, file, args_format, no_warn):
         if no_warn and (problem.level != "error"):
             continue
         if args_format == "parsable":
-            print(Format.parsable(problem))
+            if not first:
+                print(",")
+            print(Format.parsable(problem, file))
         elif args_format == "github":
             if first:
                 print("::group::%s" % file)
@@ -99,9 +105,8 @@ def show_problems(problems, file, args_format, no_warn):
         else:
             if first:
                 print(file)
-                first = False
             print(Format.standard(problem))
-        # max_level+=1
+        first = False
 
     if not first and args_format == "github":
         print("::endgroup::")
@@ -194,6 +199,8 @@ def run():
         locale.setlocale(locale.LC_ALL, conf.locale)
 
     prob_num = 0
+    if args.format == "parsable":
+        print('[')
     for file in find_files_recursively(args.files, conf):
         filepath = file[2:] if file.startswith("./") else file
         try:
@@ -205,6 +212,8 @@ def run():
         prob_num = show_problems(
             problems, file, args_format=args.format, no_warn=args.no_warnings
         )
+    if args.format == "parsable":
+        print(']')
 
     if args.stdin:
         try:

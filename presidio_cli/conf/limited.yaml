@@ -18,7 +18,9 @@ entities:
 threshold: 0.8
 ## optional `locale` parameter
 ## set a locale
-locale: en_US.UTF-8
+# locale: en_US.UTF-8
 ## optional `extends` parameter
 ## extends configurations based on another configuration file
 # extends: custom.yaml
+allow_list:
+  - "John Smith"
