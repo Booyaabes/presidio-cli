@@ -75,7 +75,7 @@ def supports_color():
     return supported_platform and hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
 
 
-def show_problems(problems, file, args_format, no_warn):
+def show_problems(problems, file, args_format, no_warn, first_file):
     max_level = 0
     first = True
 
@@ -89,7 +89,7 @@ def show_problems(problems, file, args_format, no_warn):
         if no_warn and (problem.level != "error"):
             continue
         if args_format == "parsable":
-            if not first:
+            if not first or not first_file:
                 print(",")
             print(Format.parsable(problem, file))
         elif args_format == "github":
@@ -201,6 +201,7 @@ def run():
     prob_num = 0
     if args.format == "parsable":
         print('[')
+    firstFile = True
     for file in find_files_recursively(args.files, conf):
         filepath = file[2:] if file.startswith("./") else file
         try:
@@ -210,8 +211,10 @@ def run():
             print(e, file=sys.stderr)
             sys.exit(1)
         prob_num = show_problems(
-            problems, file, args_format=args.format, no_warn=args.no_warnings
+            problems, file, args_format=args.format, no_warn=args.no_warnings, first_file=firstFile
         )
+        firstFile = False
+
     if args.format == "parsable":
         print(']')
 
