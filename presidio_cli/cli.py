@@ -17,6 +17,7 @@ class Format(object):
     def parsable(problem, file):
         problem.recognizer_result["filename"] = file
         problem.recognizer_result["line_number"] = problem.line
+        problem.recognizer_result["line_content"] = problem.line_content
         problem.recognizer_result.pop("analysis_explanation")
         problem.recognizer_result.pop("recognition_metadata")
         return json.dumps(problem.recognizer_result)

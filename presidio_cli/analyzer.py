@@ -32,7 +32,7 @@ def line_generator(buffer):
 class PIIProblem(object):
     """Represents a PII problem found by presidio-cli."""
 
-    def __init__(self, line, recognizer_result):
+    def __init__(self, line, recognizer_result, line_content):
         assert isinstance(recognizer_result, RecognizerResult)
         self.recognizer_result = recognizer_result.to_dict()
         #: Line on which the problem was found (starting at 1)
@@ -45,6 +45,7 @@ class PIIProblem(object):
         self.type = self.recognizer_result["entity_type"]
         # Score as a probability determined by the model
         self.score = self.recognizer_result["score"]
+        self.line_content = line_content
 
 
 def _analyze(buffer, conf):
@@ -61,7 +62,7 @@ def _analyze(buffer, conf):
         for result in conf.analyzer.analyze(
             text=line.content, entities=conf.entities, language=conf.language, allow_list=conf.allow_list, score_threshold=conf.threshold
         ):
-            p = PIIProblem(line.line_no, result)
+            p = PIIProblem(line.line_no, result, line.content)
             yield p
 
 
