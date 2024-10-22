@@ -1,0 +1,13 @@
+.gitignore
+tests
+.github
+Dockerfile
+.pre-commit-config.yaml
+.presidiocli
+LICENSE
+README.md
+setup.cfg
+setup.py
+presidio_cli.egg-info
+.idea
+.vscode
