@@ -59,11 +59,12 @@ def _analyze(buffer, conf):
     ), "_run() argument must be a buffer, not a stream"
 
     for line in line_generator(buffer):
-        for result in conf.analyzer.analyze(
-            text=line.content, entities=conf.entities, language=conf.language, allow_list=conf.allow_list, score_threshold=conf.threshold
-        ):
-            p = PIIProblem(line.line_no, result, line.content)
-            yield p
+        if len(line.content) <= 1000000:
+            for result in conf.analyzer.analyze(
+                text=line.content, entities=conf.entities, language=conf.language, allow_list=conf.allow_list, score_threshold=conf.threshold
+            ):
+                p = PIIProblem(line.line_no, result, line.content)
+                yield p
 
 
 def analyze(input, conf, filepath=None):

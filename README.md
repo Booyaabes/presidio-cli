@@ -50,6 +50,18 @@ cd presidio-cli
 pipenv install --deploy --dev
 ```
 
+### Install as container
+
+```shell
+docker build -t presidio-cli .
+```
+
+You can then use it directly, e.g.:
+
+```shell
+docker run -it --rm -v $(pwd)/my_directory:/my_directory:ro -v $(pwd)/presidio_cli/conf/my_conf.yaml:/my_conf.yml:ro presidio-cli -c /my_conf.yml -f parsable /my_directory
+```
+
 ## Install language models for `spaCy`
 
 Load models for the English (en) language using the command presented below. For further information please visit section [models](https://spacy.io/models/en).
